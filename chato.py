@@ -18,7 +18,10 @@ if modo == "servidor":
     print(f"Esperando conexiones en {host}:{port}...")
     conn, addr = sock.accept()
     print(f"Conectado a {addr}")
-
+else:
+    server_ip = input("Introduce la IP del servidor: ").strip()
+    sock.connect((server_ip, port))
+    conn = sock  # En modo cliente, usamos directamente sock
 
 #Función para recibir mensajes en un hilo separado
 def recibir_mensajes():
