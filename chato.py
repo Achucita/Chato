@@ -1,3 +1,4 @@
+# Configuración inicial y creación del socket
 import socket
 import threading
 
@@ -18,12 +19,14 @@ if modo == "servidor":
     print(f"Esperando conexiones en {host}:{port}...")
     conn, addr = sock.accept()
     print(f"Conectado a {addr}")
+
+# Configuración del cliente
 else:
     server_ip = input("Introduce la IP del servidor: ").strip()
     sock.connect((server_ip, port))
     conn = sock  # En modo cliente, usamos directamente sock
 
-#Función para recibir mensajes en un hilo separado
+# Función para recibir mensajes en un hilo separado
 def recibir_mensajes():
     while True:
         try:
@@ -37,3 +40,12 @@ def recibir_mensajes():
 # Iniciar hilo para recibir mensajes
 t = threading.Thread(target=recibir_mensajes, daemon=True)
 t.start()
+
+# Envío de mensajes y cierre de conexión
+while True:
+    mensaje = input("Escribe un mensaje: ")
+    if mensaje.lower() == "salir":
+        break
+    conn.send(mensaje.encode())
+
+conn.close()
