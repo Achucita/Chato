@@ -19,3 +19,18 @@ if modo == "servidor":
     conn, addr = sock.accept()
     print(f"Conectado a {addr}")
 
+
+#Función para recibir mensajes en un hilo separado
+def recibir_mensajes():
+    while True:
+        try:
+            mensaje = conn.recv(1024).decode()
+            if not mensaje:
+                break
+            print("\nMensaje recibido:\n", mensaje)
+        except:
+            break
+
+# Iniciar hilo para recibir mensajes
+t = threading.Thread(target=recibir_mensajes, daemon=True)
+t.start()
