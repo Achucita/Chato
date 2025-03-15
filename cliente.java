@@ -135,3 +135,38 @@ public class ChatClient {
         topBar.add(userDropdown);
         chatFrame.add(topBar);
 >>>>>>> 2fda956a20c42cc9b283a4a5d5e4044b5044e5c7
+
+// Parte 4 -------------------------------------
+        // Función para conectar con el servidor y recibir mensajes
+        try {
+            Socket socket = new Socket(serverIP, port);
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            out.println(username + " se ha unido a " + chatRoom + " 🎉");
+
+            sendButton.addActionListener(e -> sendMessage());
+            inputField.addActionListener(e -> sendMessage());
+
+            new Thread(() -> {
+                try {
+                    String message;
+                    while ((message = in.readLine()) != null) {
+                        addMessage(message);
+                        if (message.contains("se ha unido")) {
+                            String newUser = message.split(" ")[0];
+                            if (!userList.contains(newUser)) {
+                                userList.add(newUser);
+                                userDropdown.addItem(newUser);
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "❌ No se pudo conectar al servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
