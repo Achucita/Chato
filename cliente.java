@@ -186,7 +186,6 @@ public class ChatClient {
             System.exit(1);
         }
     }
-	 
 
 	private void addMessage(String message) {
         chatArea.append(message + "\n");
