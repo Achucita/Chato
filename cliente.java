@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.mycompany.chatclient;
 
 import javax.swing.*;
@@ -94,7 +93,7 @@ public class ChatClient {
 
         loginFrame.setVisible(true);
     }
-=======
+    
     // Función para iniciar la ventana de chat y gestionar la barra superior
     private void startChatWindow(String serverIP, int port) {
         chatFrame = new JFrame(chatRoom + " - " + username);
@@ -122,9 +121,8 @@ public class ChatClient {
             showLoginWindow();
         });
 
-        JLabel roomLabel = new JLabel(chatRoom, SwingConstants.CENTER);
-        roomLabel.setBounds(200, 10, 100, 30);
-        roomLabel.setForeground(Color.WHITE);
+        JLabel roomLabel = new JLabel(chatRoom, SwingConstants.Constats.CENTER); 
+	roomLabel.setBounds(200, 10, 100, 30); roomLabel.setForeground(Color.WHITE);
 
         userList = new Vector<>();
         userDropdown = new JComboBox<>(userList);
@@ -134,9 +132,27 @@ public class ChatClient {
         topBar.add(roomLabel);
         topBar.add(userDropdown);
         chatFrame.add(topBar);
->>>>>>> 2fda956a20c42cc9b283a4a5d5e4044b5044e5c7
 
-// Parte 4 -------------------------------------
+        // Área de texto donde se mostrarán los mensajes
+        chatArea = new JTextArea();
+        chatArea.setEditable(false);
+        chatArea.setLineWrap(true);
+        chatArea.setWrapStyleWord(true);
+        chatArea.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        scrollPane = new JScrollPane(chatArea);
+        scrollPane.setBounds(10, 60, 480, 400);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        chatFrame.add(scrollPane);
+
+        inputField = new JTextField();
+        inputField.setBounds(10, 480, 350, 40);
+        chatFrame.add(inputField);
+
+        sendButton = new JButton("Enviar");
+        sendButton.setBounds(370, 480, 100, 40);
+        chatFrame.add(sendButton);
+
         // Función para conectar con el servidor y recibir mensajes
         try {
             Socket socket = new Socket(serverIP, port);
@@ -170,3 +186,5 @@ public class ChatClient {
             System.exit(1);
         }
     }
+
+
