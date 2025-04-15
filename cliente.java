@@ -1,4 +1,4 @@
-package com.mycompany.chatclient;
+package client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Vector;
 
-public class ChatClient {
+public class TestCliente {
     private JFrame loginFrame, chatFrame;
     private JTextField nameField, serverField, portField, inputField;
     private JComboBox<String> colorBox, roomBox, userDropdown;
@@ -18,7 +18,7 @@ public class ChatClient {
     private JScrollPane scrollPane;
 
     // Constructor de la clase y función para mostrar la ventana de login
-    public ChatClient() {
+    public TestCliente() {
         showLoginWindow();
     }
 
@@ -93,7 +93,7 @@ public class ChatClient {
 
         loginFrame.setVisible(true);
     }
-    
+
     // Función para iniciar la ventana de chat y gestionar la barra superior
     private void startChatWindow(String serverIP, int port) {
         chatFrame = new JFrame(chatRoom + " - " + username);
@@ -121,7 +121,7 @@ public class ChatClient {
             showLoginWindow();
         });
 
-        JLabel roomLabel = new JLabel(chatRoom, SwingConstants.Constats.CENTER); 
+        JLabel roomLabel = new JLabel(chatRoom, SwingConstants.CENTER); 
 	roomLabel.setBounds(200, 10, 100, 30); roomLabel.setForeground(Color.WHITE);
 
         userList = new Vector<>();
@@ -185,6 +185,7 @@ public class ChatClient {
             JOptionPane.showMessageDialog(null, "❌ No se pudo conectar al servidor.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
+        chatFrame.setVisible(true);
     }
 
 	private void addMessage(String message) {
@@ -203,6 +204,6 @@ public class ChatClient {
 
     // Función principal para iniciar la aplicación
     public static void main(String[] args) {
-        new ChatClient();
+        new TestCliente();
     }
 }
